@@ -61,16 +61,24 @@ public class Account {
 	
 	public void withdraw(Double amount) {
 		
-		if (getBalance() == 0 || getBalance() < amount || amount > getWithdrawLimit() ) {
+		if (getBalance() == 0 ) {
 			//throw new IllegalArgumentException("Error in reservation: Check-out date must be after check-in date!");
-			throw new DomainExceptions("Error on withdraw");
-		}
+			throw new DomainExceptions("Withdraw error: No balance");
+		}else if (getBalance() < amount  ) {
+			//throw new IllegalArgumentException("Error in reservation: Check-out date must be after check-in date!");
+			throw new DomainExceptions("Withdraw error: Not enough balance");
+		}else if ( amount > getWithdrawLimit() ) {
+			//throw new IllegalArgumentException("Error in reservation: Check-out date must be after check-in date!");
+			throw new DomainExceptions("Withdraw error: The amount exceeds withdraw limit");
+		}else
+		balance -= amount;
 		
 	}
 		
 		@Override
 		public String toString() {
-			return "Room ";
+			return "New balance: "
+					+ String.format("%.2f", getBalance());
 		}
 	
 	
